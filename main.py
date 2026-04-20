@@ -1,6 +1,11 @@
-def main():
-    print("Hello from the-logistics-brain!")
+from fastapi import FastAPI
+from fastapi.responses import JSONResponse
 
+app = FastAPI()
 
-if __name__ == "__main__":
-    main()
+@app.get("/health")
+def health():
+    return JSONResponse(
+        status_code=200,
+        content={"status": "ok"}
+    )

@@ -7,3 +7,35 @@ requires-python = ">=3.13"
 dependencies = [
     "fastapi[standard]>=0.136.0",
 ]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.15.11",
+]
+
+[tool.ruff]
+line-length = 100           # Maximum allowed line length for formatting
+target-version = "py311"    # Target Python version for linting and upgrades
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors (basic syntax/style issues)
+    "F",   # pyflakes (detects bugs like unused imports, undefined names)
+    "I",   # isort (enforces import ordering)
+    "B",   # flake8-bugbear (finds likely bugs and bad practices)
+    "UP",  # pyupgrade (automatically upgrades syntax to modern Python)
+    "C4",  # flake8-comprehensions (improves list/dict/set comprehensions)
+    "SIM", # flake8-simplify (suggests code simplifications)
+]
+
+ignore = [
+    "E501",  # Ignore line-too-long (handled by formatter instead)
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["app"]  # Treat "app" as a local module for import sorting
+
+[tool.ruff.format]
+quote-style = "double"   # Use double quotes for strings
+indent-style = "space"   # Use spaces instead of tabs
+line-ending = "auto"     # Automatically detect line endings (LF/CRLF)

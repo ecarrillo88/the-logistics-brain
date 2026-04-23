@@ -9,6 +9,9 @@ This project is a minimal starting point for experimenting with API design, agen
 - uv: An extremely fast Python package and project manager, written in Rust.
 - FastAPI: FastAPI framework, high performance, easy to learn, fast to code, ready for production.
 - Ruff: An extremely fast Python linter and code formatter, written in Rust.
+- LangChain: LangChain is the platform for agent engineering
+- LangChain OpenAI: An integration package connecting OpenAI and LangChain
+- LangGraph: Agent Orchestration Framework for Reliable AI Agents
 
 ---
 

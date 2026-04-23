@@ -1155,6 +1155,7 @@ dependencies = [
     { name = "fastapi", extra = ["standard"] },
     { name = "langchain" },
     { name = "langchain-openai" },
+    { name = "langgraph" },
 ]
 
 [package.dev-dependencies]
@@ -1167,6 +1168,7 @@ requires-dist = [
     { name = "fastapi", extras = ["standard"], specifier = ">=0.136.0" },
     { name = "langchain", specifier = ">=1.2.15" },
     { name = "langchain-openai", specifier = ">=1.1.14" },
+    { name = "langgraph", specifier = ">=1.1.8" },
 ]
 
 [package.metadata.requires-dev]

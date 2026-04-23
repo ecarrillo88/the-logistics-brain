@@ -32,15 +32,13 @@ class TicketRequest(BaseModel):
     }
 
 class TicketResponse(BaseModel):
-    status: str
-    version: str
+    response: str
 
     model_config = {
         "extra": "forbid",
         "json_schema_extra": {
             "example": {
-                "status": "processed",
-                "version": "v1"
+                "response": "Request processed"
             }
         }
     }

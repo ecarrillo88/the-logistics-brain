@@ -15,9 +15,15 @@ router_v1 = APIRouter(prefix="/api/v1", tags=["v1"])
 )
 def process_ticket(req: TicketRequest):
     state = {
-        "ticket_id": req.ticket_id,
-        "source": req.source,
-        "content": req.content,
-        "metadata": req.metadata,
+        "ticket": {
+            "ticket_id": req.ticket_id,
+            "source": req.source,
+            "content": req.content,
+            "metadata": req.metadata
+        },
+        "response": ""
     }
-    return build_graph().invoke(state)
+
+    res = build_graph().invoke(state)
+
+    return {"response": res["response"]}

@@ -12,5 +12,9 @@ class Ticket(TypedDict):
   metadata: Metadata
 
 class State(TypedDict):
-  request: Ticket
+  ticket: Ticket
+  execution_intent: Optional[str]
+  order: Optional[dict]
+  customer_service_classification: Optional[dict]
+  logistic_operator_type_type: Optional[dict]
   response: str

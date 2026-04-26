@@ -1,7 +1,8 @@
 from consts.consts import DRIVER_APP
 
-def planner(state):
-  if state["source"] == DRIVER_APP:
-    return "logistic_operator_agent"
+def classify_ticket(state):
+  source  = state["ticket"]["source"]
+  if source == DRIVER_APP:
+    return "logistic_operator_response"
   else:
-    return "Customer_service_agent"
+    return "classify_customer_service_ticket"

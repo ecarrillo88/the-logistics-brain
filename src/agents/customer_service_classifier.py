@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from typing import Literal
 from langchain_openai import ChatOpenAI
-from config import config
+from src.config import config
 
 llm = ChatOpenAI(
     model=config.OPENAI_MODEL,

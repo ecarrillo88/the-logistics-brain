@@ -1,4 +1,4 @@
-from consts.consts import DRIVER_APP
+from src.consts.consts import DRIVER_APP
 
 def classify_ticket(state):
     source  = state.get("ticket", {}).get("source")

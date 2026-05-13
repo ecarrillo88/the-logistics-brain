@@ -52,13 +52,13 @@ uv sync
 Start the API server:
 
 ```bash
-uv run fastapi dev main.py
+uv run fastapi dev src/main.py
 ```
 
 or
 
 ```bash
-uv run uvicorn main:app --reload
+uv run uvicorn src.main:app --reload
 ```
 
 The API will be available at:

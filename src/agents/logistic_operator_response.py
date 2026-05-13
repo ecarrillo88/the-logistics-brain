@@ -1,5 +1,5 @@
 from langchain_openai import ChatOpenAI
-from config import config
+from src.config import config
 
 llm = ChatOpenAI(
     model=config.OPENAI_MODEL,

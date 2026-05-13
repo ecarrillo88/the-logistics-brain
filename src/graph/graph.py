@@ -1,10 +1,10 @@
 from langgraph.graph import StateGraph, START, END
-from agents.customer_service_classifier import customer_service_classifier
-from agents.logistic_operator_response import logistic_operator_response
-from agents.customer_service_response import customer_service_response
-from graph.node import get_order
-from graph.router import classify_ticket
-from graph.state import State
+from src.agents.customer_service_classifier import customer_service_classifier
+from src.agents.logistic_operator_response import logistic_operator_response
+from src.agents.customer_service_response import customer_service_response
+from src.graph.node import get_order
+from src.graph.router import classify_ticket
+from src.graph.state import State
 
 def build_graph():
     graph = StateGraph(State)

@@ -1,5 +1,5 @@
 import re
-from tools.orders import get_order_details
+from src.tools.orders import get_order_details
 
 def get_order(state):
     content = state.get("ticket", {}).get("content")

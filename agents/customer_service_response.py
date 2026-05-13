@@ -1,15 +1,13 @@
 from langchain_openai import ChatOpenAI
-from dotenv import load_dotenv
-import os
 import json
-
 from tools.orders import generate_invoice_pdf
+from config import config
 
-load_dotenv()
-
-os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
-
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.3)
+llm = ChatOpenAI(
+    model=config.OPENAI_MODEL,
+    api_key=config.OPENAI_API_KEY,
+    temperature=0.3
+)
 
 def customer_service_response(state):
     order = state.get("order")

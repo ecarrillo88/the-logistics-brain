@@ -1,14 +1,13 @@
 from pydantic import BaseModel
 from typing import Literal
 from langchain_openai import ChatOpenAI
-from dotenv import load_dotenv
-import os
+from config import config
 
-load_dotenv()
-
-os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
-
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.0)
+llm = ChatOpenAI(
+    model=config.OPENAI_MODEL,
+    api_key=config.OPENAI_API_KEY,
+    temperature=0.0
+)
 
 class CustomerServiceOutput(BaseModel):
     classification: Literal[

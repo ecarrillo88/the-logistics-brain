@@ -1,8 +1,16 @@
 from langchain.tools import tool
 
 @tool
-def check_road_incidents(gps_coords: dict):
-    """Returns traffic alerts"""
+def check_road_incidents(gps_coords: dict) -> list[dict]:
+    """
+    Check road_incidents and get traffic alerts
+    
+    Args:
+        gps_coords: GPS coordinates
+
+    Returns:
+        The traffic alerts
+    """
 
     incidents = [
         {

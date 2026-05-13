@@ -1,7 +1,7 @@
 from langchain_openai import ChatOpenAI
-from langchain_core.prompts import PromptTemplate
 from dotenv import load_dotenv
 import os
+import json
 
 from tools.orders import generate_invoice_pdf
 
@@ -12,12 +12,18 @@ os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.3)
 
 def customer_service_response(state):
-    order = state["order"]
-    classification = state["customer_service_classification"]
+    order = state.get("order")
+    classification = state.get("customer_service_classification")
     invoice_pdf_url = None
 
-    if(classification == "factura" and state["order"]):
-        invoice_pdf_url = generate_invoice_pdf.invoke({"order_id": state["order"]["order_id"]})
+    if(classification == "factura" and order):
+        invoice_pdf_url = generate_invoice_pdf.invoke({"order_id": order.get("order_id")})
+
+    order_json = json.dumps(
+        order,
+        indent=2,
+        ensure_ascii=False
+    ) if order else "No disponible"
 
     prompt = f"""
     Eres un asistente de atención al cliente.
@@ -28,8 +34,10 @@ def customer_service_response(state):
     - clara
     - estructurada
 
+    Devuelve únicamente HTML válido.
+
     Datos del pedido:
-    {order}
+    {order_json}
 
     URL factura:
     {invoice_pdf_url}
@@ -42,6 +50,15 @@ def customer_service_response(state):
     - Mantén tono profesional
     - Saluda al cliente utilizando su nombre
     - Adapta la respuesta según la clasificación
+
+    Formato requerido:
+    - usar <p> para párrafos
+    - usar <strong> para destacar información importante
+    - usar <ul>/<li> si hay enumeraciones
+    - incluir enlaces usando <a href="">
+    - NO usar markdown
+    - NO usar bloques de código
+    - NO incluir <html> ni <body>
 
     Redacta la respuesta final al cliente.
     """

@@ -1,14 +1,9 @@
 from langchain.tools import tool
+from typing import Any
 
-@tool
-def get_order_details(order_id: str):
-    """Returns the order details: metadata, client, and status."""
-
-    if(order_id == None):
-        return None
-
-    return {
-        "order_id": order_id,
+ORDER_DATABASE = {
+    "#ORD-123": {
+        "order_id": "#ORD-123",
         "status": "processing",
         "created_at": "2026-04-23T10:15:00Z",
         "estimated_delivery_date": "2026-05-01T00:00:00Z",
@@ -35,18 +30,47 @@ def get_order_details(order_id: str):
             "notes": "Entrega por la tarde si es posible"
         },
     }
+}
 
 @tool
-def update_delivery_schedule(order_id: str, new_time: str):
-    """Update the delivery schedule."""
+def get_order_details(order_id: str) -> dict:
+    """
+    Returns the order details: metadata, client, and status.
 
-    order = get_order_details(order_id)
+    Args:
+        order_id: The order id
+    
+    Returns:
+        The order
+    """
+
+    return ORDER_DATABASE.get(order_id)
+
+@tool
+def update_delivery_schedule(order_id: str, new_time: str) -> dict:
+    """
+    Update the delivery schedule.
+
+    Args:
+        order_id: The order id
+        new_time: New estimated delivery date
+    """
+
+    order = ORDER_DATABASE.get(order_id)
     order.estimated_delivery_date = new_time
 
     return order
 
 @tool
-def generate_invoice_pdf(order_id: str):
-    """Generate the download link for the invoice in PDF format"""
+def generate_invoice_pdf(order_id: str) -> str:
+    """
+    Generate the download link for the invoice in PDF format
+
+    Args:
+        order_id: The order id
+
+    Returns:
+        The order invoice URL
+    """
 
     return f"https://www.the-logistics-brain.org/order/{order_id}/invoice.pdf"

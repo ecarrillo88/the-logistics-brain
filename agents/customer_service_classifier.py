@@ -1,7 +1,6 @@
 from pydantic import BaseModel
-from typing import Literal, Optional
+from typing import Literal
 from langchain_openai import ChatOpenAI
-from tools.orders import get_order_details
 from dotenv import load_dotenv
 import os
 
@@ -19,25 +18,31 @@ class CustomerServiceOutput(BaseModel):
         "quejas",
         "desconocido"
     ]
-    order_id: Optional[str]
 
 def customer_service_classifier(state):
-    ticket_content = state["ticket"]["content"]
+    ticket_content = state.get("ticket", {}).get("content")
     
     prompt = f"""
-        Analiza el siguiente textoy clásificalo según su tipo.
-        Extrae también el número de pedido. Tendrá el formato #ORD-xxx, siendo xxx una secuencia numérica.
-        Responde ÚNICAMENTE en formato JSON válido:
-        {{"classification": "factura|estado_pedido|estado_reembolso|quejas|desconocido", "order_id": "#ORD-xxx|None"}}
+        Analiza el siguiente textoy clasificalo en una de estas categorías:
+        - factura
+        - estado_pedido
+        - estado_reembolso
+        - quejas
+        - desconocido
   
-        Texto: {ticket_content}
-    """
+        Texto:
+        {ticket_content}
+        """
 
-    structured_llm = llm.with_structured_output(CustomerServiceOutput)
+    try:
+        structured_llm = llm.with_structured_output(CustomerServiceOutput)
 
-    response = structured_llm.invoke(prompt)
+        response = structured_llm.invoke(prompt)
+        classification = response.classification
+    except Exception:
+        classification = "desconocido"
 
-    state["customer_service_classification"] = response.classification
-    state["order"] = get_order_details.invoke({"order_id": response.order_id})
+    state["customer_service_classification"] = classification
+    print(f"===> Classification: {classification}")
 
     return state

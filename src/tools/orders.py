@@ -1,35 +1,7 @@
 from langchain.tools import tool
 
-ORDER_DATABASE = {
-    "#ORD-123": {
-        "order_id": "#ORD-123",
-        "status": "processing",
-        "created_at": "2026-04-23T10:15:00Z",
-        "estimated_delivery_date": "2026-05-01T00:00:00Z",
-        "total_amount": 59.90,
-        "currency": "EUR",
-        "client": {
-            "id": "cli_12345",
-            "name": "John",
-            "last_name": "Doe",
-            "email": "john.doe@email.com",
-            "phone": "+34600123456",
-            "address": {
-                "street": "Calle Mayor 10",
-                "city": "Valencia",
-                "postal_code": "46001",
-                "country": "ES"
-            }
-        },
-        "metadata": {
-            "source": "web",
-            "payment_method": "card",
-            "is_gift": False,
-            "priority": "normal",
-            "notes": "Entrega por la tarde si es posible"
-        },
-    }
-}
+from src.database.order import get_order_by_id, update_order
+
 
 @tool
 def get_order_details(order_id: str) -> dict:
@@ -43,7 +15,7 @@ def get_order_details(order_id: str) -> dict:
         The order
     """
 
-    return ORDER_DATABASE.get(order_id)
+    return get_order_by_id(order_id)
 
 @tool
 def update_delivery_schedule(order_id: str, new_time: str) -> dict:
@@ -52,11 +24,12 @@ def update_delivery_schedule(order_id: str, new_time: str) -> dict:
 
     Args:
         order_id: The order id
-        new_time: New estimated delivery date
+        new_time: New estimated delivery date in YYYY-mm-ddTHH:MM:SSZ format
     """
 
-    order = ORDER_DATABASE.get(order_id)
-    order.estimated_delivery_date = new_time
+    order = get_order_by_id(order_id)
+    order["estimated_delivery_date"] = new_time
+    update_order(order_id, order)
 
     return order
 

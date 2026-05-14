@@ -1,10 +1,12 @@
+from typing import Literal
+
 from pydantic import BaseModel
-from typing import Literal, Optional
+
 
 class Metadata(BaseModel):
     severity: Literal["LOW", "MEDIUM", "HIGH", "CRITICAL"]
-    driver_id: Optional[str] = None
-    customer_segment: Optional[str] = None
+    driver_id: str | None = None
+    customer_segment: str | None = None
 
     model_config = {
         "extra": "forbid",

@@ -1,5 +1,6 @@
 from langchain.tools import tool
 
+
 @tool
 def verify_driver_status(driver_id: str) -> int:
     """

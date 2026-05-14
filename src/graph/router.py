@@ -1,5 +1,6 @@
 from src.consts.consts import DRIVER_APP
 
+
 def classify_ticket(state):
     source  = state.get("ticket", {}).get("source")
     if source == DRIVER_APP:

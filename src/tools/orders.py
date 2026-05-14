@@ -1,5 +1,4 @@
 from langchain.tools import tool
-from typing import Any
 
 ORDER_DATABASE = {
     "#ORD-123": {

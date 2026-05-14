@@ -1,5 +1,6 @@
 from langchain.tools import tool
 
+
 @tool
 def check_road_incidents(gps_coords: dict) -> list[dict]:
     """

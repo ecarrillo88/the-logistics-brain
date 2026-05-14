@@ -1,7 +1,9 @@
-from langchain_openai import ChatOpenAI
 import json
-from src.tools.orders import generate_invoice_pdf
+
+from langchain_openai import ChatOpenAI
+
 from src.config import config
+from src.tools.orders import generate_invoice_pdf
 
 llm = ChatOpenAI(
     model=config.OPENAI_MODEL,

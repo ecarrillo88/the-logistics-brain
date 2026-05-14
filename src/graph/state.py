@@ -1,9 +1,10 @@
-from typing import TypedDict, Optional
+from typing import TypedDict
+
 
 class Metadata(TypedDict):
     severity: str
-    driver_id: Optional[str] = None
-    customer_segment: Optional[str] = None
+    driver_id: str | None = None
+    customer_segment: str | None = None
 
 class Ticket(TypedDict):
     ticket_id: str
@@ -13,7 +14,7 @@ class Ticket(TypedDict):
 
 class State(TypedDict):
     ticket: Ticket
-    order: Optional[dict]
-    customer_service_classification: Optional[dict]
-    logistic_operator_type_type: Optional[dict]
+    order: dict | None
+    customer_service_classification: dict | None
+    logistic_operator_type_type: dict | None
     response: str

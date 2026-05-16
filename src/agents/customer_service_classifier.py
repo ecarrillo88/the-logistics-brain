@@ -1,15 +1,10 @@
 from typing import Literal
 
-from langchain_openai import ChatOpenAI
 from pydantic import BaseModel
 
-from src.config import config
+from src.llm.models import gpt_4o_mini
 
-llm = ChatOpenAI(
-    model=config.OPENAI_MODEL,
-    api_key=config.OPENAI_API_KEY,
-    temperature=0.0
-)
+llm = gpt_4o_mini.bind(temperature=0.0)
 
 class CustomerServiceOutput(BaseModel):
     classification: Literal[

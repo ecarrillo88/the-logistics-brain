@@ -1,17 +1,12 @@
 from langchain.agents import create_agent
-from langchain_openai import ChatOpenAI
 
-from src.config import config
 from src.helpers.common import extract_order_id
+from src.llm.models import gpt_4o_mini
 from src.tools.driver import verify_driver_status
 from src.tools.gps import check_road_incidents
 from src.tools.orders import get_order_details, update_delivery_schedule
 
-llm = ChatOpenAI(
-    model=config.OPENAI_MODEL,
-    api_key=config.OPENAI_API_KEY,
-    temperature=0.2
-)
+llm = gpt_4o_mini.bind(temperature=0.2)
 
 agent = create_agent(
     model=llm,

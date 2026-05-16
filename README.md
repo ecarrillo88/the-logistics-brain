@@ -12,6 +12,7 @@ This project is a minimal starting point for experimenting with API design, agen
 - LangChain: LangChain is the platform for agent engineering
 - LangChain OpenAI: An integration package connecting OpenAI and LangChain
 - LangGraph: Agent Orchestration Framework for Reliable AI Agents
+- Langfuse: Langfuse is an observability tool for LLM apps that tracks prompts, traces, and costs.
 
 ---
 

@@ -1,15 +1,9 @@
 import json
 
-from langchain_openai import ChatOpenAI
-
-from src.config import config
+from src.llm.models import gpt_4o_mini
 from src.tools.orders import generate_invoice_pdf
 
-llm = ChatOpenAI(
-    model=config.OPENAI_MODEL,
-    api_key=config.OPENAI_API_KEY,
-    temperature=0.3
-)
+llm = gpt_4o_mini.bind(temperature=0.3)
 
 def customer_service_response(state):
     order = state.get("order")

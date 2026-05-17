@@ -18,6 +18,38 @@ This project is a minimal starting point for experimenting with API design, agen
 
 ## Setup
 
+### Docker
+
+Start development environment:
+
+```bash
+docker compose -f docker-compose.dev.yml up --build
+```
+
+Logs:
+
+```bash
+docker compose logs -f api
+```
+
+Start, stop and restart the app:
+
+```bash
+docker compose start|restart|stop
+```
+
+Remove the container:
+
+```bash
+docker compose down
+```
+
+The API will be available at:
+
+[http://127.0.0.1:8000](http://127.0.0.1:8000)
+
+### Manually
+
 You need to have uv installed:
 
 [https://docs.astral.sh/uv/](https://docs.astral.sh/uv/)
@@ -45,10 +77,6 @@ pip install uv
 ```bash
 uv sync
 ```
-
----
-
-## Run the application
 
 Start the API server:
 

@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
-from src.graph.graph import build_graph
-from src.schemas.ticket import TicketRequest, TicketResponse
+from app.graph.graph import build_graph
+from app.schemas.ticket import TicketRequest, TicketResponse
 
 router_v1 = APIRouter(prefix="/api/v1", tags=["v1"])
 

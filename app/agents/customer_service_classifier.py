@@ -2,7 +2,7 @@ from typing import Literal
 
 from pydantic import BaseModel
 
-from src.llm.models import gpt_4o_mini
+from app.llm.models import gpt_4o_mini
 
 llm = gpt_4o_mini.bind(temperature=0.0)
 

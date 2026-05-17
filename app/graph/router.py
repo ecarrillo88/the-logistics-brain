@@ -1,4 +1,4 @@
-from src.consts.consts import DRIVER_APP
+from app.consts.consts import DRIVER_APP
 
 
 def classify_ticket(state):

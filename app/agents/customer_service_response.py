@@ -1,7 +1,7 @@
 import json
 
-from src.llm.models import gpt_4o_mini
-from src.tools.orders import generate_invoice_pdf
+from app.llm.models import gpt_4o_mini
+from app.tools.orders import generate_invoice_pdf
 
 llm = gpt_4o_mini.bind(temperature=0.3)
 

@@ -1,5 +1,5 @@
-from src.helpers.common import extract_order_id
-from src.tools.orders import get_order_details
+from app.helpers.common import extract_order_id
+from app.tools.orders import get_order_details
 
 
 def get_order(state):

@@ -1,6 +1,6 @@
 from langchain.tools import tool
 
-from src.database.order import get_order_by_id, update_order
+from app.database.order import get_order_by_id, update_order
 
 
 @tool

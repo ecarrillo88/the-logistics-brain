@@ -1,38 +1,88 @@
 # Workshop: Agent Architecture & Orchestration with Python
 
-This project is a minimal starting point for experimenting with API design, agent architectures, and orchestration patterns using Python.
+A minimal workshop project for experimenting with:
 
----
+- Agent architectures
+- Multi-step orchestration
+- API design with FastAPI
+- LLM integrations
+- Observability for AI systems
 
-## Requirements
+Built with modern Python tooling and focused on developer experience.
 
-- uv: An extremely fast Python package and project manager, written in Rust.
-- FastAPI: FastAPI framework, high performance, easy to learn, fast to code, ready for production.
-- Ruff: An extremely fast Python linter and code formatter, written in Rust.
-- LangChain: LangChain is the platform for agent engineering
-- LangChain OpenAI: An integration package connecting OpenAI and LangChain
-- LangGraph: Agent Orchestration Framework for Reliable AI Agents
-- Langfuse: Langfuse is an observability tool for LLM apps that tracks prompts, traces, and costs.
+## Tech Stack
 
----
+| Tool             | Purpose                                   |
+| ---------------- | ----------------------------------------- |
+| Python           | Core language                             |
+| uv               | Dependency and environment management     |
+| FastAPI          | API framework                             |
+| Ruff             | Linting and formatting                    |
+| LangChain        | LLM application framework                 |
+| LangGraph        | Agent orchestration                       |
+| LangChain OpenAI | OpenAI integration                        |
+| Langfuse         | Tracing, observability, and cost tracking |
+| Docker           | Local development environment             |
 
-## Setup
+## Project Structure
 
-### Docker
+```bash
+.
+├── app/
+│ ├── agents/
+│ ├── api/
+│ ├── consts/
+│ ├── database/
+│ ├── graph/
+│ ├── helpers/
+│ ├── llm/
+│ ├── schemas/
+│ ├── tools/
+│ ├── config.py
+│ └── main.py
+├── .env
+├── docker-compose.dev.yml
+├── docker-compose.yml
+├── Dockerfile
+├── pyproject.toml
+└── README.md
+```
 
-Start development environment:
+## Prerequisites
+
+Before starting, install:
+
+- Docker + Docker Compose (optional)
+- Python 3.13+
+- uv
+
+Install uv:
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+Official docs:
+
+https://docs.astral.sh/uv/
+
+## Quick Start
+
+### Option 1 — Docker (Recommended)
+
+Start the development environment:
 
 ```bash
 docker compose -f docker-compose.dev.yml up --build
 ```
 
-Logs:
+View logs:
 
 ```bash
 docker compose logs -f api
 ```
 
-Start, stop and restart the app:
+Start, stop and restart the container:
 
 ```bash
 docker compose start|restart|stop
@@ -46,74 +96,147 @@ docker compose down
 
 The API will be available at:
 
-[http://127.0.0.1:8000](http://127.0.0.1:8000)
-
-### Manually
-
-You need to have uv installed:
-
-[https://docs.astral.sh/uv/](https://docs.astral.sh/uv/)
-
-Install via curl:
-
-```bash id="2h7q1x"
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-
-Install via wget:
-
 ```bash
-wget -qO- https://astral.sh/uv/install.sh | sh
+http://127.0.0.1:8000
 ```
 
-Install via pip:
+### Option 2 — Local Development
 
-```bash
-pip install uv
-```
-
-### Install dependencies:
+Install dependencies:
 
 ```bash
 uv sync
 ```
 
-Start the API server:
+Run the development server:
 
 ```bash
 uv run fastapi dev src/main.py
 ```
 
-or
+Or using uvicorn:
 
 ```bash
 uv run uvicorn src.main:app --reload
 ```
 
-The API will be available at:
+## Environment Variables
 
-[http://127.0.0.1:8000](http://127.0.0.1:8000)
+Create a .env file:
 
----
+```bash
+OPENAI_API_KEY=your_key_here
 
-## Health Check
+LANGFUSE_PUBLIC_KEY=your_key_here
+LANGFUSE_SECRET_KEY=your_key_here
+LANGFUSE_BASE_URL=langfuse_base_url
+```
 
-### Endpoint
+## API Documentation
+
+Swagger UI:
+
+```bash
+http://127.0.0.1:8000/docs
+```
+
+OpenAPI schema:
+
+```bash
+http://127.0.0.1:8000/openapi.json
+```
+
+## Endpoints
+
+### Health Check
+
+Request:
 
 ```http
 GET /health
 ```
 
-### Test it
+Example:
 
 ```bash
 curl http://127.0.0.1:8000/health
 ```
 
-### Response
+Response:
 
 ```json
 {
   "status": "ok"
 }
 ```
+
+### Process Ticket
+
+Processes a logistics support ticket through the orchestration workflow.
+
+Request:
+
+```http
+POST /api/v1/logistics/process-ticket
+```
+
+Example:
+
+```bash
+curl 'http://127.0.0.1:8000/api/v1/logistics/process-ticket' \
+--header 'Content-Type: application/json' \
+--data '{
+  "ticket_id": "T-99822",
+  "source": "CUSTOMER_EMAIL",
+  "content": "Hola, necesito la factura del envío #ORD-123 entregado ayer para presentar mis impuestos. Gracias.",
+  "metadata": {
+    "severity": "LOW",
+    "customer_segment": "B2B"
+  }
+}'
+```
+
+Response:
+
+```json
+{
+  "response": "The response"
+}
+```
+
+## Development
+
+Lint:
+
+```bash
+uv run ruff check .
+```
+
+Format:
+
+```bash
+uv run ruff format .
+```
+
+## Architecture Goals
+
+This workshop explores patterns such as:
+
+- Agent-based workflows
+- State-driven orchestration
+- Tool calling
+- Structured outputs
+- Human-in-the-loop systems
+- Observability and tracing
+- Modular API design
+
+## Future Improvements
+
+- Authentication
+- Async workflows
+- Streaming responses
+- Queue-based processing
+- Persistent memory
+- Evaluation pipelines
+- CI/CD pipelines
+- Unit and integration testing
